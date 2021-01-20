@@ -16,6 +16,7 @@ public class Consumer {
         return period;
     }
 
+    //TODO Consumer buy ware price range
     /*private int[] priceDemand(){
 
         return
