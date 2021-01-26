@@ -27,7 +27,19 @@ public class Market {
     //Search for a ware and remove consumer and ware.
     private void searchForWare(PlayerBusiness pB) {
         for (int i = 0; i < consumers.size(); i++) {
-            consumers.get(i);
+            for (int k = 0; k < pB.getInventory().size(); k++) {
+                if (consumers.get(i).getHighestRatio() >= pB.getInventory().get(k).getWareRatio() &&
+                        consumers.get(i).getHighestPriceWilling() >= pB.getInventory().get(k).getSellPrice() &&
+                        consumers.get(i).getLowestQualityDemand() <= pB.getInventory().get(k).getQuality()) {
+                    pB.soldWare(pB.getInventory().get(k).getSellPrice());
+                    System.out.println("A ware was sold for " + pB.getInventory().get(k).getSellPrice() + "$");
+                    ArrayList<Ware> tempInventory = pB.getInventory();
+                    tempInventory.remove(k);
+                    pB.setInventory(tempInventory);
+                    consumers.remove(i);
+                    break;
+                }
+            }
 
 
         }
