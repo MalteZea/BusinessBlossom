@@ -12,7 +12,8 @@ public class PlayerBusiness {
 
     Random random = new Random();
     private long businessCapital = 0;
-    private ArrayList<Ware> inventory = new ArrayList<>();
+    private ArrayList<Ware> inventory = new ArrayList();
+    private ArrayList<RawResource> rawResources = new ArrayList();
     private int batchProductionTimer = 9;
     private static int productionProgress = 8;
     private double wareQuality = 1.0;
@@ -27,7 +28,24 @@ public class PlayerBusiness {
         this.businessCapital = businessCapital + sellprice;
     }
 
-    //TODO add quality level
+    //TODO add quality level modifier
+
+    //TODO add raw resource purchase and utilization
+    public void buyRawResource(Level resourceQuality, int purchaseAmount){
+        int costOfRawResource;
+            switch (resourceQuality) {
+                case LOW:
+                    costOfRawResource = 20;
+                    break;
+                case MEDIUM:
+                    costOfRawResource = 30;
+                    break;
+                case HIGH:
+                    costOfRawResource = 50;
+                    break;
+            }
+
+    }
 
     //Produce batch ware.
     private void batchProduction() {
@@ -51,6 +69,15 @@ public class PlayerBusiness {
             if (batchNumber == ware.getBatchNumber()) {
                 ware.setSellPrice(sellPrice);
             }
+        }
+    }
+
+    //Expansion of production
+    public void expandProduction() {
+        int costOfExpansion = 10000;
+        if (costOfExpansion >= businessCapital) {
+            productionAmount += 2;
+            businessCapital -= costOfExpansion;
         }
     }
 
